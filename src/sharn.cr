@@ -29,9 +29,21 @@ module SharnCLI
     class Add < Packager
       def run
         puts (options.dev? ? "TODO: Add development package" : "TODO: Add package")
-        args.packages.each do |pkg|
-          puts pkg
+        shardFile = YAML.parse(File.read("./shard.yml"))
+        deps = YAML.parse(shardFile.as_h["dependencies"].to_yaml).as_h
+
+        args.packages.each do |pkgs|
+          pkg = pkgs.split(":")
+          name = pkg[0]
+          gitUrl = pkg[1]
+
+          oldDeps = deps
+          deps = deps.merge({name => {"github" => gitUrl}})
+
+          puts oldDeps
         end
+        puts deps.to_yaml # --> TODO: Still figuring out how to replace file contents
+        puts "\n"
         Inspect.run
       end
     end
@@ -39,6 +51,7 @@ module SharnCLI
     class Remove < Packager
       def run
         puts "TODO: Remove package"
+        puts "\n"
         Inspect.run
       end
     end
@@ -49,10 +62,12 @@ module SharnCLI
       end
 
       def run
-        shardInfo = YAML.parse(File.read((options.f? ? options.f : "./shard.yml")))
-        puts "#{shardInfo["name"]}@#{shardInfo["version"]} (Crystal #{shardInfo["crystal"]})"
-        shardInfo["dependencies"].each do |pkg|
-          puts "└#{pkg}"
+        crInfo = YAML.parse(File.read((options.f? ? options.f : "./shard.yml")))
+        shardLInfo = YAML.parse(File.read("./shard.lock"))
+        puts "#{crInfo["name"]}@#{crInfo["version"]} (Crystal #{crInfo["crystal"]})"
+        shardLInfo["shards"].as_h.each do |pkg|
+          pkgInfo = JSON.parse(pkg[1].to_json)
+          puts " └#{pkg[0]}:#{pkgInfo["github"]}@#{pkgInfo["version"]}"
         end
       end
     end
@@ -60,6 +75,9 @@ module SharnCLI
     class Install < Cli::Command
       def run
         puts "TODO: Install package"
+
+        puts "\n"
+        Inspect.run
       end
     end
   end
