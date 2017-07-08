@@ -44,6 +44,8 @@ I work this project during weekends and have a long free time. Right now here's 
   - [ ] add `shards install` command for postinstall
   - [x] YAML manipulation 
   - [ ] Installing dev dependencies with `--dev` flag
+  - [ ] Specify git provider
+  - [ ] Specify branch
 	
 ## Quirks
 You may have noticed that `shard.yml` has changed with some newlines/whitespaces removed. This is because the way YAML module in Crystal builds but don't worry this is still valid YAML and it has no difference when installing dependencies.
