@@ -3,4 +3,5 @@
 /bin/
 /.shards/
 sharn
+shard.test.yml
 output.txt
