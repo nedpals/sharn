@@ -1,13 +1,19 @@
-# sharn (Work in progress)
+# sharn (Work in progress) (0.1.11)
 
-A script built on Crystal that adds additional commands for the Shards package manager. It is inspired from [Yarn](https://yarnpkg.com), a package manager for Javascript.
+A script built on Crystal that adds additional commands for the [Shards](https://github.com/crystal-lang/shards) dependency manager. It is inspired from [Yarn](https://yarnpkg.com), a package manager for Javascript.
 
 With Sharn, you don't have to write dependencies directly to your `shard.yml` file. Instead, you just have to type in the command and you're ready to go.
 
+This is also my own version of the solution for [issue #144](https://github.com/crystal-lang/shards/issues/144) that is currently been discussed at the `crystal-lang/shards` repo.
+
 **Note: This is not a replacement for Shards. Shards will still be used in installing your dependencies.**
+
 ## Installation
 
-TODO: Write installation instructions here
+1. Clone this repo.
+2. Build it with `crystal build`
+3. Run it.
+4. **For now**, manually install the dependencies through `crystal deps` or `shards install`.
 
 ## Usage
 
@@ -27,9 +33,19 @@ Options:
   -v, --version  show version
 ```
 
-## Development
+## Development Roadmap
+I work this project during weekends and have a long free time. Right now here's what 
 
-TODO: Write development instructions here
+- [x] Primary commands (add, remove, inspect, install)
+  - [x] `add` command
+  - [x] `remove` command
+  - [x] `inspect` command
+  - [] `install` command
+  - [] add `shards install` command for postinstall
+  - [x] YAML manipulation 
+	
+## Quirks
+You may have noticed that `shard.yml` has changed with some newlines/whitespaces removed. This is because the way YAML module in Crystal builds but don't worry this is still valid YAML and it has no difference when installing dependencies.
 
 ## Contributing
 
