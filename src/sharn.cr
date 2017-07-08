@@ -34,31 +34,30 @@ module SharnCLI
 
     class Add < Packager
       def run
-        puts (options.dev? ? "TODO: Add development package" : "TODO: Add package")
-        shardFile = File.read("./shard.test.yml")
+        shardFile = File.read("./shard.yml")
         shard = YAML.parse(shardFile)
         deps = YAML.parse(shard.as_h["dependencies"].to_yaml).as_h
         newDeps = {} of String => Hash(String, String)
-        sLines = shardFile.lines
 
         args.packages.map do |pkgs|
           sleep(1)
           pkg = pkgs.split(":")
           pkg_name = pkg[0]
           pkg_repo = pkg[1]
+
+          if shardFile["dependencies"]?.try &.[pkg_name]?
+            puts "#{pkg_name} was already added to shards file."
+          end
+
           if args.packages.first?
             newDeps[pkg_name] = {"github" => pkg_repo}
           else
             newDeps.merge({pkg_name => {"github" => pkg_repo}})
           end
-
-          if shardFile["dependencies"]?.try &.[pkg_name]?
-            puts "#{pkg_name} was already added to shards file."
-          end
         end
         compiledDeps = {"dependencies" => deps.merge(newDeps)}
         output = YAML.dump(shard.as_h.merge(compiledDeps)).gsub("---\n", "")
-        File.write("./shard.test.yml", output)
+        File.write("./shard.yml", output)
         puts "\n"
         Inspect.run
       end
