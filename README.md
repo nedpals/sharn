@@ -40,8 +40,8 @@ I work this project during weekends and have a long free time. Right now here's 
   - [x] `add` command
   - [x] `remove` command
   - [x] `inspect` command
-  - [] `install` command
-  - [] add `shards install` command for postinstall
+  - [ ] `install` command
+  - [ ] add `shards install` command for postinstall
   - [x] YAML manipulation 
 	
 ## Quirks
