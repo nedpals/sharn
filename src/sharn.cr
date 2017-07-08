@@ -2,12 +2,14 @@ require "./sharn/*"
 require "cli"
 require "yaml"
 require "json"
+require "colorize"
 
 module SharnCLI
   class Sharn < Cli::Supercommand
     version "0.0.1"
     command "install", default: true
 
+    puts "Sharn".colorize.fore(:light_gray)
     class Help
       header "Additional commands for the Shards package manager."
       footer "(C) 2017 nedpals"
@@ -64,10 +66,10 @@ module SharnCLI
       def run
         crInfo = YAML.parse(File.read((options.f? ? options.f : "./shard.yml")))
         shardLInfo = YAML.parse(File.read("./shard.lock"))
-        puts "#{crInfo["name"]}@#{crInfo["version"]} (Crystal #{crInfo["crystal"]})"
+        puts "#{crInfo["name"].colorize.mode(:underline).fore(:light_green)}@#{crInfo["version"]} (Crystal #{crInfo["crystal"]})"
         shardLInfo["shards"].as_h.each do |pkg|
           pkgInfo = JSON.parse(pkg[1].to_json)
-          puts " └#{pkg[0]}:#{pkgInfo["github"]}@#{pkgInfo["version"]}"
+          puts " └#{pkg[0].colorize.mode(:underline).fore(:light_green)}:#{pkgInfo["github"]}@#{pkgInfo["version"]}"
         end
       end
     end
