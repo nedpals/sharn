@@ -9,7 +9,10 @@ module SharnCLI
     version "0.0.1"
     command "install", default: true
 
+    # Just some crazy intro
+    sleep(1)
     puts "Sharn".colorize.fore(:light_gray)
+    sleep(3)
     class Help
       header "Additional commands for the Shards package manager."
       footer "(C) 2017 nedpals"
