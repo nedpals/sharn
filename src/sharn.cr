@@ -65,7 +65,15 @@ module SharnCLI
 
     class Remove < Packager
       def run
-        puts "TODO: Remove package"
+        shardFile = File.read("./shard.yml")
+        shard = YAML.parse(shardFile)
+        deps = YAML.parse(shard.as_h["dependencies"].to_yaml).as_h
+        newDeps = {} of String => Hash(String, String)
+        sleep(1)
+        newDeps = deps.reject(args.packages)
+        compiledDeps = {"dependencies" => newDeps}
+        output = YAML.dump(shard.as_h.merge(compiledDeps)).gsub("---\n", "")
+        File.write("./shard.yml", output)
         puts "\n"
         Inspect.run
       end
