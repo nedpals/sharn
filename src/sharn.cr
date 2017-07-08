@@ -13,6 +13,7 @@ module SharnCLI
     sleep(1)
     puts "Sharn".colorize.fore(:light_gray)
     sleep(3)
+
     class Help
       header "Additional commands for the Shards package manager."
       footer "(C) 2017 nedpals"
