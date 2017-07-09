@@ -26,8 +26,8 @@ module SharnCLI
 
     abstract class Packager < Cli::Command
       class Options
-        bool "--dev", default: true
-        bool "--force", default: true
+        bool "--dev", default: false
+        bool "--force", default: false
         arg_array "packages"
       end
     end
