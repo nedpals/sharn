@@ -50,7 +50,7 @@ Options:
     - [ ] `~>`, `=>`
 	
 ## Quirks
-You may have noticed that `shard.yml` has changed with some newlines/whitespaces removed. This is because the way YAML module in Crystal builds but don't worry this is still valid YAML and it has no difference when installing dependencies.
+You may have noticed that `shard.yml` file has been changed with some newlines/whitespaces removed. This is because the way YAML module in Crystal builds the markup but don't worry this is still valid YAML and it has no difference when installing dependencies compared with newlines/whitespaces.
 
 ## Contributing
 
