@@ -43,7 +43,6 @@ module SharnCLI
         args.packages.map do |pkgs|
           sleep(1)
           pkg = pkgs.split(/[:@]/)
-          puts pkg
 
           if shardFile["dependencies"]?.try &.[pkg_name]?
             puts "#{pkg_name} was already added to shards file."
