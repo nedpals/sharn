@@ -42,20 +42,29 @@ module SharnCLI
 
         args.packages.map do |pkgs|
           sleep(1)
-          pkg = pkgs.split(":")
-          pkg_name = pkg[0]
-          pkg_repo = pkg[1]
+          pkg = pkgs.split(/[:@]/)
+          puts pkg
 
           if shardFile["dependencies"]?.try &.[pkg_name]?
             puts "#{pkg_name} was already added to shards file."
+          if %w(git gitlab github bitbucket).any? { |s| pkg.first.includes? s }
+            pkg_git = pkg[0]
+            pkg_name = pkg[1]
+            pkg_repo = pkg[2]
+            pkg_ver = pkg[3].nil? ? nil : pkg[3]
             pkg_branch = options.branch.nil? ? nil : options.branch
+          else
+            pkg_git = "github"
+            pkg_name = pkg[0]
+            pkg_repo = pkg[1]
+            pkg_ver = pkg[2].nil? ? nil : pkg[2]
             pkg_branch = options.branch.nil? ? nil : options.branch
           end
 
           if args.packages.first?
-            newDeps[pkg_name] = {"github" => pkg_repo}
+            newDeps[pkg_name] = {pkg_git => pkg_repo, "version" => pkg_ver, "branch" => pkg_branch}.compact
           else
-            newDeps.merge({pkg_name => {"github" => pkg_repo}})
+            newDeps.merge({pkg_name => {pkg_git => pkg_repo, "version" => pkg_ver, "branch" => pkg_branch}}.compact)
           end
         end
         compiledDeps = {"dependencies" => deps.merge(newDeps)}
