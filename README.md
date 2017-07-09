@@ -13,14 +13,14 @@ This is also my own version of the solution for [issue #144](https://github.com/
 1. Clone this repo.
 2. Build it with `crystal build`
 3. Run it.
-4. **For now**, manually install the dependencies through `crystal deps` or `shards install`.
+4. **FOR NOW**, manually install your dependencies through `crystal deps` or `shards install`.
 
 ## Usage
 
 ```shell
 sharn [OPTIONS] [SUBCOMMAND]
 
-Additional commands for the Shards package manager.
+Additional commands for the Shards dependency manager.
 
 Subcommands:
   add
