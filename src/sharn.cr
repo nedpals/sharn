@@ -28,6 +28,7 @@ module SharnCLI
       class Options
         bool "--dev", default: false
         bool "--force", default: false
+        string "--branch"
         arg_array "packages"
       end
     end
@@ -47,6 +48,8 @@ module SharnCLI
 
           if shardFile["dependencies"]?.try &.[pkg_name]?
             puts "#{pkg_name} was already added to shards file."
+            pkg_branch = options.branch.nil? ? nil : options.branch
+            pkg_branch = options.branch.nil? ? nil : options.branch
           end
 
           if args.packages.first?
