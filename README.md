@@ -34,18 +34,20 @@ Options:
 ```
 
 ## Development Roadmap
-I work this project during weekends and have a long free time. Right now here's what 
 
 - [x] Primary commands (add, remove, inspect, install)
   - [x] `add` command
   - [x] `remove` command
   - [x] `inspect` command
   - [ ] `install` command
-  - [ ] add `shards install` command for postinstall
+  - [ ] execute `shards install` in post-installation
   - [x] YAML manipulation 
   - [ ] Installing dev dependencies with `--dev` flag
-  - [ ] Specify git provider
-  - [ ] Specify branch
+  - [x] Specify git plaform
+  - [x] Specify branch (with `--branch` option)
+  - [ ] Specify version
+    - [x] Just version number
+    - [ ] `~>`, `=>`
 	
 ## Quirks
 You may have noticed that `shard.yml` has changed with some newlines/whitespaces removed. This is because the way YAML module in Crystal builds but don't worry this is still valid YAML and it has no difference when installing dependencies.
