@@ -29,14 +29,15 @@ sharn remove depname1 depname2
 ```shell
 sharn add depname:git/repo@0.1.0
 ```
-**Note: version scopes such as `~>` and `=>` are not safe to use it yet as they will make a file in your working directory**
+**Note: version scopes such as `~>` and `=>` are not safe to use it yet as they will make a file in your working directory.**
 
 4. Specify git platform
 ```shell
 sharn add [gitlab/github/bitbucket]:depname:git/repo
 ```
 **Note: Currently you cannot add git URLs from other platforms that aren't listed above.**
-**Tip: When none specified, it automatically identifies it as a GitHub repo.**
+
+**Tip: When none is specified, it automatically identifies it as a GitHub repo.**
 
 5. Specify branch with `--branch` option
 ```shell
