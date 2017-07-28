@@ -35,42 +35,59 @@ module SharnCLI
 
     class Add < Packager
       def run
+        depType = options.dev? ? "development_dependencies" : "dependencies"
+
         shardFile = File.read("./shard.yml")
         shard = YAML.parse(shardFile)
-        deps = YAML.parse(shard.as_h["dependencies"].to_yaml).as_h
+        if shard.as_h.key?(depType) == nil
+          deps = {} of String => Hash(String, String)
+        else
+          deps = YAML.parse(shard.as_h[depType].to_yaml).as_h
+        end
+
         newDeps = {} of String => Hash(String, String)
 
         args.packages.map do |pkgs|
           sleep(1)
           pkg = pkgs.split(/[:@]/)
-
-          if shardFile["dependencies"]?.try &.[pkg_name]?
-            puts "#{pkg_name} was already added to shards file."
+          pkg_attr = ["pkg_name", "pkg_repo"]
+          puts pkg
           if %w(git gitlab github bitbucket).any? { |s| pkg.first.includes? s }
             pkg_git = pkg[0]
             pkg_name = pkg[1]
             pkg_repo = pkg[2]
-            pkg_ver = pkg[3].nil? ? nil : pkg[3]
-            pkg_branch = options.branch.nil? ? nil : options.branch
+            pkg_ver = pkg[3]
+            pkg_branch = options.branch.nil? ? options.branch : nil
           else
             pkg_git = "github"
             pkg_name = pkg[0]
             pkg_repo = pkg[1]
-            pkg_ver = pkg[2].nil? ? nil : pkg[2]
-            pkg_branch = options.branch.nil? ? nil : options.branch
+            pkg_ver = pkg[2]
+            pkg_branch = options.branch.nil? ? options.branch : nil
           end
 
-          if args.packages.first?
-            newDeps[pkg_name] = {pkg_git => pkg_repo, "version" => pkg_ver, "branch" => pkg_branch}.compact
-          else
-            newDeps.merge({pkg_name => {pkg_git => pkg_repo, "version" => pkg_ver, "branch" => pkg_branch}}.compact)
-          end
+          # if shard[depType].as_h.key?(pkg_name) == nil
+          #   puts "#{pkg_name} was already added to shards file."
+          # end
+
+          # if args.packages.first?
+          #   newDeps[pkg_name] = {pkg_git => pkg_repo, "version" => pkg_ver, "branch" => pkg_branch}.compact
+          # else
+          #   newDeps.merge({pkg_name => {pkg_git => pkg_repo, "version" => pkg_ver, "branch" => pkg_branch}}.compact)
+          # end
         end
-        compiledDeps = {"dependencies" => deps.merge(newDeps)}
-        output = YAML.dump(shard.as_h.merge(compiledDeps)).gsub("---\n", "")
-        File.write("./shard.yml", output)
-        puts "\n"
-        Inspect.run
+        # compiledDeps = {depType => deps.merge(newDeps)}
+        # puts shard.as_a
+        # if options.dev?
+        #   shardArray = shard.as_a.
+        #   inserted = shardArray
+        #   output = YAML.dump(inserted).gsub("---\n", "")
+        # else
+        #   output = YAML.dump(shard.as_h.merge(compiledDeps)).gsub("---\n", "")
+        # end
+        # File.write("./shard.yml", output)
+        # puts "\n"
+        # Inspect.run
       end
     end
 
