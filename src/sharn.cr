@@ -6,7 +6,7 @@ require "colorize"
 
 module SharnCLI
   class Sharn < Cli::Supercommand
-    version "0.1.13"
+    version "0.1.16"
     command "install", default: true
 
     # Just some crazy intro
