@@ -1,8 +1,4 @@
-### ~~important announcement as if this was a big deal: [https://thisis.nedpals.xyz/2017/08/12/i-broke-sharn-update-html](https://thisis.nedpals.xyz/2017/08/12/i-broke-sharn-update-html)~~
-
-#### update #2: im working it again. fixed.
-
-# sharn (Work in progress) (0.1.16)
+# Sharn (0.1.16)
 
 A command line program built on Crystal that adds new commands for the [Shards](https://github.com/crystal-lang/shards) dependency manager. It is inspired from [Yarn](https://yarnpkg.com), a package manager for Javascript.
 
