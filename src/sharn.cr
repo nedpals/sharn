@@ -97,15 +97,16 @@ module SharnCLI
 
     class Remove < Packager
       def run
-        shardFile = File.read("./shard.yml")
+        depType = options.dev? ? "development_dependencies" : "dependencies"
+        shardFile = File.read(options.debug? ? "./shard.test.yml" : "./shard.yml")
         shard = YAML.parse(shardFile)
-        deps = YAML.parse(shard.as_h["dependencies"].to_yaml).as_h
+        deps = YAML.parse(shard.as_h[depType].to_yaml).as_h
         newDeps = {} of String => Hash(String, String)
         sleep(1)
         newDeps = deps.reject(args.packages)
-        compiledDeps = {"dependencies" => newDeps}
+        compiledDeps = {depType => newDeps}
         output = YAML.dump(shard.as_h.merge(compiledDeps)).gsub("---\n", "")
-        File.write("./shard.yml", output)
+        File.write(options.debug? ? "./shard.test.yml" : "./shard.yml", output)
         puts "\n"
 
         Install.run unless options.debug?
