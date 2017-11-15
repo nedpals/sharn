@@ -78,9 +78,9 @@ Options:
 (*) - development dependencies still in limited support. see quirks.
 	
 ## Quirks
-1. You may have noticed that `shard.yml` file has been changed with some newlines/whitespaces removed. This is because the way YAML module in Crystal builds the markup but don't worry this is still valid YAML and it has no difference when installing dependencies compared with newlines/whitespaces.
+1. You may have noticed that your `shard.yml` file has been changed with newlines/whitespaces removed. This is because the way YAML module in Crystal builds the markup but don't worry this is still valid YAML and it has no difference when installing dependencies compared with newlines/whitespaces.
 
-2. Dependencies added using the `--dev` flag are now working but not added in the correct order as per [shard.yml specification](https://github.com/crystal-lang/shards/blob/master/SPEC.md)
+2. Dependencies added using the `--dev` flag are now working but not added in the correct order as per [shard.yml specification](https://github.com/crystal-lang/shards/blob/master/SPEC.md).
 
 ## Contributing
 
