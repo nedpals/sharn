@@ -1,4 +1,6 @@
-### important announcement as if this was a big deal: [https://thisis.nedpals.xyz/2017/08/12/i-broke-sharn-update-html](https://thisis.nedpals.xyz/2017/08/12/i-broke-sharn-update-html)
+### ~~important announcement as if this was a big deal: [https://thisis.nedpals.xyz/2017/08/12/i-broke-sharn-update-html](https://thisis.nedpals.xyz/2017/08/12/i-broke-sharn-update-html)~~
+
+#### update #2: im working it again. fixed.
 
 # sharn (Work in progress) (0.1.16)
 
