@@ -35,6 +35,8 @@ module SharnCLI
 
     class Add < Packager
       def run
+        depType = options.dev? ? "development_dependencies" : "dependencies"
+
         shardFile = File.read(options.debug? ? "./shard.test.yml" : "./shard.yml")
         shard = YAML.parse(shardFile)
         deps = YAML.parse(shard.as_h["dependencies"].to_yaml).as_h
