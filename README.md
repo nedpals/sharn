@@ -71,9 +71,9 @@ Options:
   - [x] Installing dev dependencies with `--dev` flag(*)
   - [x] Specify git plaform
   - [x] Specify branch (with `--branch` option)
-  - [ ] Specify version
-    - [ ] Just version number
-    - [ ] `~>`, `=>`
+  - [x] Specify version
+    - [x] Just version number
+    - [x] `~>`, `=>`, `<=`, `>`, `<`
 
 (*) - development dependencies still in limited support. see quirks.
 	
