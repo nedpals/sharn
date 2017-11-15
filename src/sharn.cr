@@ -3,6 +3,8 @@ require "cli"
 require "yaml"
 require "json"
 require "colorize"
+require "io"
+require "process"
 
 module SharnCLI
   class Sharn < Cli::Supercommand
@@ -126,7 +128,24 @@ module SharnCLI
 
     class Install < Cli::Command
       def run
-        puts "TODO: Install package"
+        output = IO::Memory.new
+
+        Process.run("shards", output: output)
+        output.close
+        output.to_s
+
+        puts "\n"
+        Inspect.run
+      end
+    end
+
+    class Update < Cli::Command
+      def run
+        output = IO::Memory.new
+
+        Process.run("shards update", output: output)
+        output.close
+        output.to_s
 
         puts "\n"
         Inspect.run
