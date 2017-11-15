@@ -45,7 +45,7 @@ module SharnCLI
         newDeps = {} of String => Hash(String, String)
 
         args.packages.map do |pkgs|
-          regex = Regex.new("^((github|gitlab|bitbucket):)?((.+):)?([^/]+)\/([^#]+)(#(.+))?$")
+          regex = Regex.new("^((github|gitlab|bitbucket):)?((.+):)?([^/]+)\/([^#]+)(#(.+))?([^@]+)?(@(.+))$")
 
           if match = regex.match(pkgs).not_nil!.to_a
             platform = match[2] || "github"
@@ -54,6 +54,7 @@ module SharnCLI
             pkg_name = match[6]
             branch = match[8] || "master"
             path = "#{owner}/#{pkg_name}"
+            version = match[11] || "*"
 
             if owner == nil && pkg_name == nil
               platform = "git"
@@ -75,7 +76,7 @@ module SharnCLI
             end
           end
 
-          newDeps = newDeps.merge({pkg_name => {platform => path, "branch" => branch}}).compact
+          newDeps = newDeps.merge({pkg_name => {platform => path, "branch" => branch, "version" => version}}).compact
         end
         # sleep(1)
         compiledDeps = {depType => deps.merge(newDeps)}
