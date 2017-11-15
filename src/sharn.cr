@@ -29,6 +29,7 @@ module SharnCLI
         bool "--dev", default: false
         bool "--force", default: false
         string "--branch"
+        bool "--debug", default: false
         arg_array "packages"
       end
     end
