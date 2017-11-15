@@ -35,7 +35,7 @@ module SharnCLI
 
     class Add < Packager
       def run
-        shardFile = File.read("./shard.yml")
+        shardFile = File.read(options.debug? ? "./shard.test.yml" : "./shard.yml")
         shard = YAML.parse(shardFile)
         deps = YAML.parse(shard.as_h["dependencies"].to_yaml).as_h
         newDeps = {} of String => Hash(String, String)
@@ -69,6 +69,7 @@ module SharnCLI
         compiledDeps = {"dependencies" => deps.merge(newDeps)}
         output = YAML.dump(shard.as_h.merge(compiledDeps)).gsub("---\n", "")
         File.write("./shard.yml", output)
+        File.write(options.debug? ? "./shard.test.yml" : "./shard.yml", output)
         puts "\n"
         Inspect.run
       end
