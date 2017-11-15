@@ -35,9 +35,9 @@ sharn add [gitlab/github/bitbucket]:depname:git/repo
 
 **Tip: By default, when none is specified, Sharn will automatically identifies it as a GitHub repo.**
 
-5. Specify branch with `--branch` option
+5. Specify branch.
 ```shell
-sharn add depname:git/repo --branch master
+sharn add depname:git/repo#master
 ```
 
 ### List of commands
