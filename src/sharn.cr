@@ -39,7 +39,7 @@ module SharnCLI
 
         shardFile = File.read(options.debug? ? "./shard.test.yml" : "./shard.yml")
         shard = YAML.parse(shardFile)
-        deps = YAML.parse(shard.as_h["dependencies"].to_yaml).as_h
+        deps = YAML.parse(shard.as_h[depType].to_yaml).as_h || {} of String => Hash(String, String)
         newDeps = {} of String => Hash(String, String)
 
         args.packages.map do |pkgs|
