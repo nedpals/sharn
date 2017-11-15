@@ -74,15 +74,19 @@ Options:
   - [ ] `install` command
   - [ ] execute `shards install` in post-installation
   - [x] YAML manipulation 
-  - [ ] Installing dev dependencies with `--dev` flag
+  - [x] Installing dev dependencies with `--dev` flag(*)
   - [x] Specify git plaform
   - [x] Specify branch (with `--branch` option)
   - [ ] Specify version
     - [x] Just version number
     - [ ] `~>`, `=>`
+
+(*) - development dependencies still in limited support. see quirks.
 	
 ## Quirks
-You may have noticed that `shard.yml` file has been changed with some newlines/whitespaces removed. This is because the way YAML module in Crystal builds the markup but don't worry this is still valid YAML and it has no difference when installing dependencies compared with newlines/whitespaces.
+1. You may have noticed that `shard.yml` file has been changed with some newlines/whitespaces removed. This is because the way YAML module in Crystal builds the markup but don't worry this is still valid YAML and it has no difference when installing dependencies compared with newlines/whitespaces.
+
+2. Dependencies added using the `--dev` flag are now working but not added in the correct order as per [shard.yml specification](https://github.com/crystal-lang/shards/blob/master/SPEC.md)
 
 ## Contributing
 

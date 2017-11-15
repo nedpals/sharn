@@ -43,7 +43,6 @@ module SharnCLI
         newDeps = {} of String => Hash(String, String)
 
         args.packages.map do |pkgs|
-          sleep(1)
           regex = Regex.new("^((github|gitlab|bitbucket):)?((.+):)?([^/]+)\/([^#]+)(#(.+))?$")
 
           if match = regex.match(pkgs).not_nil!.to_a
@@ -58,6 +57,16 @@ module SharnCLI
               platform = "git"
               path = origin
             end
+
+            # if origin === nil
+            #   if platform === "github"
+            #     origin = "github.com"
+            #   elsif platform === "gitlab"
+            #     origin = "gitlab.com"
+            #   elsif platform === "bitbucket"
+            #     origin = "bitbucket.com"
+            #   end
+            # end
 
             if shard[depType].as_h.has_key?(pkg_name)
               puts "#{pkg_name} was already added to shards file."
@@ -75,6 +84,8 @@ module SharnCLI
         else
           output = YAML.dump(shard.as_h.merge(compiledDeps)).gsub("---\n", "")
         end
+
+        puts output
         File.write(options.debug? ? "./shard.test.yml" : "./shard.yml", output)
         puts "\n"
         Inspect.run
