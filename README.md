@@ -71,14 +71,15 @@ Options:
   - [x] `add` command
   - [x] `remove` command
   - [x] `inspect` command
-  - [ ] `install` command
-  - [ ] execute `shards install` in post-installation
+  - [x] `install` command
+  - [x] `update` command
+  - [x] execute `shards install` in post-installation
   - [x] YAML manipulation 
   - [x] Installing dev dependencies with `--dev` flag(*)
   - [x] Specify git plaform
   - [x] Specify branch (with `--branch` option)
   - [ ] Specify version
-    - [x] Just version number
+    - [ ] Just version number
     - [ ] `~>`, `=>`
 
 (*) - development dependencies still in limited support. see quirks.
