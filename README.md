@@ -44,13 +44,14 @@ sharn add depname:git/repo#master
 ```shell
 sharn [OPTIONS] [SUBCOMMAND]
 
-Additional commands for the Shards dependency manager.
+Additional commands for the Shards package manager.
 
 Subcommands:
   add
   inspect
   install (default)
   remove
+  update
 
 Options:
   -h, --help     show this help
