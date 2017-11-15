@@ -90,7 +90,8 @@ module SharnCLI
         puts output
         File.write(options.debug? ? "./shard.test.yml" : "./shard.yml", output)
         puts "\n"
-        Inspect.run
+
+        Install.run unless options.debug?
       end
     end
 
@@ -106,7 +107,8 @@ module SharnCLI
         output = YAML.dump(shard.as_h.merge(compiledDeps)).gsub("---\n", "")
         File.write("./shard.yml", output)
         puts "\n"
-        Inspect.run
+
+        Install.run unless options.debug?
       end
     end
 
