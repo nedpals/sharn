@@ -1,3 +1,5 @@
+### important announcement as if this was a big deal: [https://thisis.nedpals.xyz/2017/08/12/i-broke-sharn-update-html](https://thisis.nedpals.xyz/2017/08/12/i-broke-sharn-update-html)
+
 # sharn (Work in progress) (0.1.13)
 
 A command line program built on Crystal that adds new commands for the [Shards](https://github.com/crystal-lang/shards) dependency manager. It is inspired from [Yarn](https://yarnpkg.com), a package manager for Javascript.
@@ -16,7 +18,35 @@ This is also my own version of the solution for [issue #144](https://github.com/
 4. **FOR NOW**, manually install your dependencies through `crystal deps` or `shards install`.
 
 ## Usage
+1.  Add dependency/dependencies.
+```shell
+sharn add depname:git/reponame
+```
 
+2. Remove dependency/dependencies
+```shell
+sharn remove depname1 depname2
+```
+3. Specify version.
+```shell
+sharn add depname:git/repo@0.1.0
+```
+**Note: version scopes such as `~>` and `=>` are not safe to use it yet as they will make a file in your working directory.**
+
+4. Specify git platform
+```shell
+sharn add [gitlab/github/bitbucket]:depname:git/repo
+```
+**Note: Currently you cannot add git URLs from other platforms that aren't listed above.**
+
+**Tip: When none is specified, it automatically identifies it as a GitHub repo.**
+
+5. Specify branch with `--branch` option
+```shell
+sharn add depname:git/repo --branch master
+```
+
+### List of commands
 ```shell
 sharn [OPTIONS] [SUBCOMMAND]
 
