@@ -61,6 +61,9 @@ module SharnCLI
             newDeps[pkg_name] = {pkg_git => pkg_repo, "version" => pkg_ver, "branch" => pkg_branch}.compact
           else
             newDeps.merge({pkg_name => {pkg_git => pkg_repo, "version" => pkg_ver, "branch" => pkg_branch}}.compact)
+            if shard[depType].as_h.has_key?(pkg_name)
+              puts "#{pkg_name} was already added to shards file."
+            end
           end
         end
         compiledDeps = {"dependencies" => deps.merge(newDeps)}
