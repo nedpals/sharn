@@ -59,18 +59,22 @@ module SharnCLI
               path = origin
             end
 
-          if args.packages.first?
-            newDeps[pkg_name] = {pkg_git => pkg_repo, "version" => pkg_ver, "branch" => pkg_branch}.compact
-          else
-            newDeps.merge({pkg_name => {pkg_git => pkg_repo, "version" => pkg_ver, "branch" => pkg_branch}}.compact)
             if shard[depType].as_h.has_key?(pkg_name)
               puts "#{pkg_name} was already added to shards file."
             end
           end
+
+          newDeps = newDeps.merge({pkg_name => {platform => path, "branch" => branch}}).compact
         end
-        compiledDeps = {"dependencies" => deps.merge(newDeps)}
-        output = YAML.dump(shard.as_h.merge(compiledDeps)).gsub("---\n", "")
-        File.write("./shard.yml", output)
+        # sleep(1)
+        compiledDeps = {depType => deps.merge(newDeps)}
+
+        if options.dev?
+          inserted = shard.as_a
+          output = YAML.dump(inserted).gsub("---\n", "")
+        else
+          output = YAML.dump(shard.as_h.merge(compiledDeps)).gsub("---\n", "")
+        end
         File.write(options.debug? ? "./shard.test.yml" : "./shard.yml", output)
         puts "\n"
         Inspect.run
