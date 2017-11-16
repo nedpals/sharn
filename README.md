@@ -17,7 +17,7 @@ This is also my own version of the solution for [issue #144](https://github.com/
 ## Usage
 1.  Add dependency/dependencies.
 ```shell
-sharn add depname:git/reponame
+sharn add git/reponame
 ```
 
 2. Remove dependency/dependencies
@@ -26,18 +26,18 @@ sharn remove depname1 depname2
 ```
 3. Specify version.
 ```shell
-sharn add depname:git/repo@0.1.0
+sharn add git/repo@0.1.0
 ```
 4. Specify git platform
 ```shell
-sharn add [gitlab/github/bitbucket]:depname:git/repo
+sharn add [gitlab/github/bitbucket]:git/repo
 ```
 
 **Tip: By default, when none is specified, Sharn will automatically identifies it as a GitHub repo.**
 
 5. Specify branch.
 ```shell
-sharn add depname:git/repo#master
+sharn add git/repo#master
 ```
 
 ### List of commands
