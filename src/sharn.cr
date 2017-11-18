@@ -31,6 +31,7 @@ module SharnCLI
         bool "--dev", default: false
         bool "--force", default: false
         bool "--debug", default: false
+        bool "--noinstall", default: false
         arg_array "packages"
       end
     end
@@ -110,7 +111,7 @@ module SharnCLI
         File.write(options.debug? ? "./shard.test.yml" : "./shard.yml", output)
         puts "\n"
 
-        Install.run unless options.debug?
+        Install.run unless options.debug? || options.noinstall?
       end
     end
 
