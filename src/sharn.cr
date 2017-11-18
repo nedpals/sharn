@@ -17,7 +17,7 @@ module SharnCLI
     sleep(3)
 
     class Help
-      header "Additional commands for the Shards package manager."
+      header "Additional commands for the Shards dependency manager."
       footer "(C) 2017 nedpals"
     end
 

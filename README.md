@@ -44,7 +44,7 @@ sharn add git/repo#master
 ```shell
 sharn [OPTIONS] [SUBCOMMAND]
 
-Additional commands for the Shards package manager.
+Additional commands for the Shards dependency manager.
 
 Subcommands:
   add
