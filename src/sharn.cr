@@ -133,9 +133,10 @@ module SharnCLI
 
     class Install < Cli::Command
       def run
+        puts "Installing dependencies..."
         output = IO::Memory.new
 
-        Process.run("shards", output: output)
+        Process.run("shards", shell: true, output: output)
         output.close
         output.to_s
 
@@ -146,9 +147,10 @@ module SharnCLI
 
     class Update < Cli::Command
       def run
+        puts "Updating dependencies..."
         output = IO::Memory.new
 
-        Process.run("shards update", output: output)
+        Process.run("shards update", shell: true, output: output)
         output.close
         output.to_s
 
