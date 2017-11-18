@@ -123,7 +123,7 @@ module SharnCLI
       def run
         crInfo = YAML.parse(File.read((options.f? ? options.f : "./shard.yml")))
         shardLInfo = YAML.parse(File.read("./shard.lock"))
-        puts "#{crInfo["name"].colorize.mode(:underline).fore(:light_green)}@#{crInfo["version"]} (Crystal #{crInfo["crystal"]})"
+        puts "#{crInfo["name"].colorize.mode(:underline).fore(:light_green)}@#{crInfo["version"]} (Min: Crystal #{crInfo["crystal"]})"
         shardLInfo["shards"].as_h.each do |pkg|
           pkgInfo = JSON.parse(pkg[1].to_json)
           puts " └#{pkg[0].colorize.mode(:underline).fore(:light_green)}:#{pkgInfo["github"]}@#{pkgInfo["version"]}"
