@@ -14,7 +14,7 @@ module SharnCLI
     # Just some crazy intro
     sleep(1)
     puts "Sharn".colorize.fore(:light_gray)
-    sleep(3)
+    sleep(1)
 
     class Help
       header "Additional commands for the Shards dependency manager."
