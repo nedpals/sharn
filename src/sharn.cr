@@ -83,18 +83,18 @@ module SharnCLI
 
         compiledDeps = {depType => deps.merge(newDeps)}
 
-        if options.dev?
-          inserted = shard.as_a
-          output = YAML.dump(inserted).gsub("---\n", "")
-        else
-          output = YAML.dump(shard.as_h.merge(compiledDeps)).gsub("---\n", "")
-        end
+        inserted = options.dev? ? shard.as_a : shard.as_h.merge(compiledDeps)
 
-        puts output
-        File.write(options.debug? ? "./shard.test.yml" : "./shard.yml", output)
+        output = YAML.dump(inserted).gsub("---\n", "").split("\n")
+        output = output.insert(2, "").insert(5, "")
+        output = output.join("\n")
+
+        File.write(file, output)
+        puts shardFile if options.debug?
         puts "\n"
 
-        Install.run unless options.debug?
+        puts "Done."
+        Install.run unless options.debug? || options.noinstall?
       end
     end
 
