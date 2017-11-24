@@ -76,11 +76,11 @@ module SharnCLI
             if shard[depType].as_h.has_key?(pkg_name)
               puts "#{pkg_name} was already added to shards file."
             end
-          end
 
-          newDeps = newDeps.merge({pkg_name => {platform => path, "branch" => branch, "version" => version}}).compact
+            newDeps = newDeps.merge({pkg_name => {platform => path, "branch" => branch, "version" => version}}).compact
+          end
         end
-        # sleep(1)
+
         compiledDeps = {depType => deps.merge(newDeps)}
 
         if options.dev?
