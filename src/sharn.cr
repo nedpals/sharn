@@ -49,7 +49,7 @@ module SharnCLI
         args.packages.map do |pkgs|
           regex = Regex.new("^((github|gitlab|bitbucket):)?((.+):)?([^/]+)\/([^#]+)(#(.+))?([^@]+)?(@(.+))?$")
 
-          if match = regex.match(pkgs).not_nil!.to_a
+          if match = pkgs.match(regex).not_nil!.to_a
             platform = match[2] || "github"
             origin = match[4]
             owner = match[5]
