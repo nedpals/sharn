@@ -1,0 +1,5 @@
+files: ./**/*.cr
+run: crystal build ./src/sharn.cr -p -t
+---
+files: ./shard.yml
+run: crystal deps
