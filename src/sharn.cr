@@ -55,9 +55,12 @@ module SharnCLI
             origin = match[4]
             owner = match[5]
             pkg_name = match[6]
-            branch = match[8] || "master"
+            branch = match[8] || nil
             path = "#{owner}/#{pkg_name}"
-            version = match[11] || "*"
+            version = match[11] || nil
+            pkg_detail = {platform => path, "branch" => branch, "version" => version}.compact
+
+            puts pkg_detail if options.debug?
 
             if owner == nil && pkg_name == nil
               platform = "git"
@@ -78,7 +81,7 @@ module SharnCLI
               puts "#{pkg_name} was already added to shards file."
             end
 
-            newDeps = newDeps.merge({pkg_name => {platform => path, "branch" => branch, "version" => version}}).compact
+            newDeps = newDeps.merge({pkg_name => pkg_detail}).compact
           end
         end
 
