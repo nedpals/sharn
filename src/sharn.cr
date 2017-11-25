@@ -97,10 +97,8 @@ module SharnCLI
         output = output.join("\n")
 
         File.write(file, output)
-        puts shardFile if options.debug?
-        puts "\n"
 
-        puts "Done."
+        puts "\nDone."
         Install.run unless options.debug? || options.noinstall?
       end
     end
