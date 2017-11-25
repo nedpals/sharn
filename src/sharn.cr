@@ -32,6 +32,7 @@ module SharnCLI
         bool "--force", default: false
         bool "--debug", default: false
         bool "--noinstall", default: false
+        bool "--clean", default: false
         arg_array "packages"
       end
     end
@@ -86,7 +87,13 @@ module SharnCLI
         inserted = options.dev? ? shard.as_a : shard.as_h.merge(compiledDeps)
 
         output = YAML.dump(inserted).gsub("---\n", "").split("\n")
-        output = output.insert(2, "").insert(5, "")
+
+        if options.clean?
+          [2, 5].each do |idx|
+            output = output.insert(idx, " ")
+          end
+        end
+
         output = output.join("\n")
 
         File.write(file, output)
