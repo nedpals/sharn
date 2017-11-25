@@ -98,24 +98,24 @@ module SharnCLI
       end
     end
 
-    class Remove < Packager
-      def run
-        depType = options.dev? ? "development_dependencies" : "dependencies"
-        file = options.debug? ? "./shard.test.yml" : "./shard.yml"
-        puts "File detected: #{file}" if options.debug?
-        shardFile = File.read(file)
-        shard = YAML.parse(shardFile)
-        deps = YAML.parse(shard.as_h[depType].to_yaml).as_h || {} of String => Hash(String, String)
-        newDeps = {} of String => Hash(String, String)
+    # class Remove < Packager
+    #   def run
+    #     depType = options.dev? ? "development_dependencies" : "dependencies"
+    #     file = options.debug? ? "shard.test.yml" : "shard.yml"
+    #     puts "File detected: #{file}" if options.debug?
+    #     shardFile = File.read(file)
+    #     shard = YAML.parse(shardFile)
+    #     deps = YAML.parse(shard.as_h[depType].to_yaml).as_h || {} of String => Hash(String, String)
+    #     newDeps = {} of String => Hash(String, String)
+    #     output = YAML.dump(shard.as_h.merge({depType => newDeps})).gsub("---\n", "")
+    #     puts output if options.debug?
 
-        compiledDeps = {depType => newDeps}
-        output = YAML.dump(shard.as_h.merge(compiledDeps)).gsub("---\n", "")
-        File.write(options.debug? ? "./shard.test.yml" : "./shard.yml", output)
-        puts "\n"
+    #     File.write(options.debug? ? "./shard.test.yml" : "./shard.yml", output)
+    #     puts "\n"
 
-        Install.run unless options.debug? || options.noinstall?
-      end
-    end
+    #     Install.run unless options.debug? || options.noinstall?
+    #   end
+    # end
 
     class Inspect < Cli::Command
       class Options
