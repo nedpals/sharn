@@ -1,5 +1,5 @@
 [![My Patreon page](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://patreon.com/dotgeeq)
-# Sharn (0.1.17)
+# Sharn (0.1.18)
 A command line program built on Crystal that adds new commands for the [Shards](https://github.com/crystal-lang/shards) dependency manager. It is inspired from [Yarn](https://yarnpkg.com), a package manager for Javascript.
 
 With Sharn, you don't have to write dependencies directly to your `shard.yml` file. Instead, you just have to type in the command and you're ready to go.
@@ -22,7 +22,7 @@ sharn add git/reponame
 
 2. Remove dependency/dependencies
 ```shell
-sharn remove depname1 depname2
+sharn rm depname1 depname2
 ```
 3. Specify version.
 ```shell
@@ -50,7 +50,7 @@ Subcommands:
   add
   inspect
   install (default)
-  remove
+  rm
   update
 
 Options:

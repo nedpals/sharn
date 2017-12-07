@@ -8,13 +8,13 @@ require "process"
 
 module SharnCLI
   class Sharn < Cli::Supercommand
-    version "0.1.17"
+    version "0.1.18"
     command "install", default: true
 
     # Just some crazy intro
     sleep(1)
     puts "Sharn".colorize.fore(:light_gray)
-    sleep(3)
+    sleep(1)
 
     class Help
       header "Additional commands for the Shards dependency manager."
@@ -32,6 +32,7 @@ module SharnCLI
         bool "--force", default: false
         bool "--debug", default: false
         bool "--noinstall", default: false
+        bool "--clean", default: false
         arg_array "packages"
       end
     end
@@ -39,23 +40,27 @@ module SharnCLI
     class Add < Packager
       def run
         depType = options.dev? ? "development_dependencies" : "dependencies"
-
-        shardFile = File.read(options.debug? ? "./shard.test.yml" : "./shard.yml")
+        file = options.debug? ? "./shard.test.yml" : "./shard.yml"
+        puts "File detected: #{file}" if options.debug?
+        shardFile = File.read(file)
         shard = YAML.parse(shardFile)
         deps = YAML.parse(shard.as_h[depType].to_yaml).as_h || {} of String => Hash(String, String)
         newDeps = {} of String => Hash(String, String)
 
         args.packages.map do |pkgs|
-          regex = Regex.new("^((github|gitlab|bitbucket):)?((.+):)?([^/]+)\/([^#]+)(#(.+))?([^@]+)?(@(.+))$")
+          regex = Regex.new("^((github|gitlab|bitbucket):)?((.+):)?([^/]+)\/([^#]+)(#(.+))?([^@]+)?(@(.+))?$")
 
-          if match = regex.match(pkgs).not_nil!.to_a
+          if match = pkgs.match(regex).not_nil!.to_a
             platform = match[2] || "github"
             origin = match[4]
             owner = match[5]
             pkg_name = match[6]
-            branch = match[8] || "master"
+            branch = match[8] || nil
             path = "#{owner}/#{pkg_name}"
-            version = match[11] || "*"
+            version = match[11] || nil
+            pkg_detail = {platform => path, "branch" => branch, "version" => version}.compact
+
+            puts pkg_detail if options.debug?
 
             if owner == nil && pkg_name == nil
               platform = "git"
@@ -75,42 +80,47 @@ module SharnCLI
             if shard[depType].as_h.has_key?(pkg_name)
               puts "#{pkg_name} was already added to shards file."
             end
-          end
 
-          newDeps = newDeps.merge({pkg_name => {platform => path, "branch" => branch, "version" => version}}).compact
+            newDeps = newDeps.merge({pkg_name => pkg_detail}).compact
+          end
         end
-        # sleep(1)
+
         compiledDeps = {depType => deps.merge(newDeps)}
 
-        if options.dev?
-          inserted = shard.as_a
-          output = YAML.dump(inserted).gsub("---\n", "")
-        else
-          output = YAML.dump(shard.as_h.merge(compiledDeps)).gsub("---\n", "")
+        inserted = options.dev? ? shard.as_a : shard.as_h.merge(compiledDeps)
+
+        output = YAML.dump(inserted).gsub("---\n", "").split("\n")
+
+        if options.clean?
+          [2, 5].each do |idx|
+            output = output.insert(idx, " ")
+          end
         end
 
-        puts output
-        File.write(options.debug? ? "./shard.test.yml" : "./shard.yml", output)
-        puts "\n"
+        output = output.join("\n")
 
-        Install.run unless options.debug?
+        File.write(file, output)
+
+        puts "\nDone."
+        # Install.run unless options.debug? || options.noinstall?
       end
     end
 
-    class Remove < Packager
+    class Rm < Packager
       def run
         depType = options.dev? ? "development_dependencies" : "dependencies"
-        shardFile = File.read(options.debug? ? "./shard.test.yml" : "./shard.yml")
+        file = options.debug? ? "shard.test.yml" : "shard.yml"
+        puts "File detected: #{file}" if options.debug?
+        shardFile = File.read(file)
         shard = YAML.parse(shardFile)
-        deps = YAML.parse(shard.as_h[depType].to_yaml).as_h
+        deps = YAML.parse(shard.as_h[depType].to_yaml).as_h || {} of String => Hash(String, String)
         newDeps = {} of String => Hash(String, String)
-        sleep(1)
         newDeps = deps.reject(args.packages)
         compiledDeps = {depType => newDeps}
         output = YAML.dump(shard.as_h.merge(compiledDeps)).gsub("---\n", "")
+        puts output if options.debug?
         File.write(options.debug? ? "./shard.test.yml" : "./shard.yml", output)
         puts "\n"
-
         Install.run unless options.debug? || options.noinstall?
       end
     end
@@ -134,13 +144,7 @@ module SharnCLI
     class Install < Cli::Command
       def run
         puts "Installing dependencies..."
-        output = IO::Memory.new
-
-        Process.run("shards", shell: true, output: output)
-        output.close
-        output.to_s
-
-        puts "\n"
+        Process.run("shards", shell: true)
         Inspect.run
       end
     end
@@ -148,13 +152,7 @@ module SharnCLI
     class Update < Cli::Command
       def run
         puts "Updating dependencies..."
-        output = IO::Memory.new
-
-        Process.run("shards update", shell: true, output: output)
-        output.close
-        output.to_s
-
-        puts "\n"
+        Process.run("shards update", shell: true)
         Inspect.run
       end
     end
