@@ -18,7 +18,7 @@ module SharnCLI
 
     class Help
       header "Additional commands for the Shards dependency manager."
-      footer "(C) 2017 nedpals"
+      footer "(C) 2017 github.com/nedpals | nedpals.xyz"
     end
 
     class Options
@@ -46,16 +46,15 @@ module SharnCLI
         shard = YAML.parse(shardFile)
         deps = YAML.parse(shard.as_h[depType].to_yaml).as_h || {} of String => Hash(String, String)
         newDeps = {} of String => Hash(String, String)
+        regex = Regex.new("^((github|gitlab|bitbucket):)?((.+):)?([^/]+)\/([^#]+)(#(.+))([^@]+)(@(.+))$")
 
         args.packages.map do |pkgs|
-          regex = Regex.new("^((github|gitlab|bitbucket):)?((.+):)?([^/]+)\/([^#]+)(#(.+))?([^@]+)?(@(.+))?$")
-
           if match = pkgs.match(regex).not_nil!.to_a
             platform = match[2] || "github"
             origin = match[4]
             owner = match[5]
             pkg_name = match[6]
-            branch = match[8] || nil
+            branch = "#{match[8]}#{match[9]}" || nil
             path = "#{owner}/#{pkg_name}"
             version = match[11] || nil
             pkg_detail = {platform => path, "branch" => branch, "version" => version}.compact
@@ -102,7 +101,7 @@ module SharnCLI
         File.write(file, output)
 
         puts "\nDone."
-        # Install.run unless options.debug? || options.noinstall?
+        Install.run unless options.debug? || options.noinstall?
       end
     end
 
@@ -126,12 +125,8 @@ module SharnCLI
     end
 
     class Inspect < Cli::Command
-      class Options
-        string "-f"
-      end
-
       def run
-        crInfo = YAML.parse(File.read((options.f? ? options.f : "./shard.yml")))
+        crInfo = YAML.parse(File.read("./shard.yml"))
         shardLInfo = YAML.parse(File.read("./shard.lock"))
         puts "#{crInfo["name"].colorize.mode(:underline).fore(:light_green)}@#{crInfo["version"]} (Min: Crystal #{crInfo["crystal"]})"
         shardLInfo["shards"].as_h.each do |pkg|
