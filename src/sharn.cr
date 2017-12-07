@@ -101,7 +101,7 @@ module SharnCLI
         File.write(file, output)
 
         puts "\nDone."
-        # Install.run unless options.debug? || options.noinstall?
+        Install.run unless options.debug? || options.noinstall?
       end
     end
 
