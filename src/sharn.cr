@@ -18,7 +18,7 @@ module SharnCLI
 
     class Help
       header "Additional commands for the Shards dependency manager."
-      footer "(C) 2017 nedpals"
+      footer "(C) 2017 github.com/nedpals | nedpals.xyz"
     end
 
     class Options
