@@ -46,16 +46,15 @@ module SharnCLI
         shard = YAML.parse(shardFile)
         deps = YAML.parse(shard.as_h[depType].to_yaml).as_h || {} of String => Hash(String, String)
         newDeps = {} of String => Hash(String, String)
+        regex = Regex.new("^((github|gitlab|bitbucket):)?((.+):)?([^/]+)\/([^#]+)(#(.+))([^@]+)(@(.+))$")
 
         args.packages.map do |pkgs|
-          regex = Regex.new("^((github|gitlab|bitbucket):)?((.+):)?([^/]+)\/([^#]+)(#(.+))?([^@]+)?(@(.+))?$")
-
           if match = pkgs.match(regex).not_nil!.to_a
             platform = match[2] || "github"
             origin = match[4]
             owner = match[5]
             pkg_name = match[6]
-            branch = match[8] || nil
+            branch = "#{match[8]}#{match[9]}" || nil
             path = "#{owner}/#{pkg_name}"
             version = match[11] || nil
             pkg_detail = {platform => path, "branch" => branch, "version" => version}.compact
