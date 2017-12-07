@@ -1,3 +1,4 @@
+[![My Patreon page](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://patreon.com/dotgeeq)
 # Sharn (0.1.18)
 A command line program built on Crystal that adds new commands for the [Shards](https://github.com/crystal-lang/shards) dependency manager. It is inspired from [Yarn](https://yarnpkg.com), a package manager for Javascript.
 
