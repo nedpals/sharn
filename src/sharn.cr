@@ -102,11 +102,11 @@ module SharnCLI
         File.write(file, output)
 
         puts "\nDone."
+    class Rm < Packager
         Install.run unless options.debug? || options.noinstall?
       end
     end
 
-    # class Remove < Packager
     #   def run
     #     depType = options.dev? ? "development_dependencies" : "dependencies"
     #     file = options.debug? ? "shard.test.yml" : "shard.yml"
