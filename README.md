@@ -21,7 +21,7 @@ sharn add git/reponame
 
 2. Remove dependency/dependencies
 ```shell
-sharn remove depname1 depname2
+sharn rm depname1 depname2
 ```
 3. Specify version.
 ```shell
@@ -49,7 +49,7 @@ Subcommands:
   add
   inspect
   install (default)
-  remove
+  rm
   update
 
 Options:
