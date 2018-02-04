@@ -11,10 +11,10 @@ module SharnCLI
     version VERSION
     command "install", default: true
 
-    # Just some crazy intro
-    sleep(1)
-    puts "Sharn".colorize.fore(:light_gray)
-    sleep(1)
+    before_initialize do |cmd|
+      # Just some crazy intro
+      cmd.puts "Sharn".colorize.fore(:light_gray)
+    end
 
     class Help
       header "Additional commands for the Shards dependency manager."
