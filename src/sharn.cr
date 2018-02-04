@@ -8,7 +8,7 @@ require "process"
 
 module SharnCLI
   class Sharn < Cli::Supercommand
-    version "0.1.18"
+    version VERSION
     command "install", default: true
 
     # Just some crazy intro
