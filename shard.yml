@@ -1,12 +1,16 @@
 name: sharn
 version: 0.1.18
+
 authors:
 - Ned Palacios <npdoesmc@gmail.com>
+
 targets:
   sharn:
     main: src/sharn.cr
+
 dependencies:
   cli:
     github: mosop/cli
-crystal: 0.22.0
+
+crystal: 0.23.1
 license: MIT
