@@ -2,7 +2,7 @@
 /lib/
 /bin/
 /.shards/
-sharn
+/sharn
 shard.test.yml
 output.txt
 regex.txt
