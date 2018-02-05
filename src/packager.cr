@@ -3,11 +3,11 @@ require "cli"
 module SharnCLI
   abstract class Packager < Cli::Command
     class Options
-      bool "--dev", default: false
-      bool "--force", default: false
-      bool "--debug", default: false
-      bool "--noinstall", default: false
-      bool "--clean", default: false
+      bool "--dev", default: false, desc: "Adds packages as development dependency"
+      bool "--force", default: false, desc: "Forces install shards"
+      bool "--debug", default: false, desc: "For testing purposes"
+      bool "--noinstall", default: false, desc: "Disable automatic install upon adding/removing"
+      bool "--clean", default: false, desc: "(Experimental) Formats your Shards YAML file."
       arg_array "packages"
     end
 
