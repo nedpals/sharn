@@ -4,6 +4,7 @@ require "packager"
 module SharnCLI
   def add_package(add_type : String, packages : Array(String))
     new_deps = {} of String => Hash(String, String)
+    dep_hash = deps_hash || empty_deps_hash
     dep_type = add_type === "dev" ? "development_dependencies" : "dependencies"
     puts "File detected: #{detect_shard_file}" if options.debug?
     regex = Regex.new("^((github|gitlab|bitbucket):)?((.+):)?([^\/]+)\/([^#]+)(#(.+))?$")
@@ -53,7 +54,7 @@ module SharnCLI
       end
     end
 
-    compiled_deps = {dep_type => deps_hash.merge(new_deps)}
+    compiled_deps = {dep_type => dep_hash.merge(new_deps)}
     inserted = options.dev? ? parsed_shard_file.as_a : parsed_shard_file.as_h.merge(compiled_deps)
     output = YAML.dump(inserted).gsub("---\n", "").split("\n")
     clean_shard(output)
