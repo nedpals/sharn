@@ -23,6 +23,10 @@ module SharnCLI
       YAML.parse(File.read(detect_shard_file))
     end
 
+    def empty_deps_hash
+      {} of String => Hash(String, String)
+    end
+
     def deps_hash : Hash(YAML::Type, YAML::Type)
       YAML.parse(parsed_shard_file.as_h[dep_type].to_yaml).as_h
     end
