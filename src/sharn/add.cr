@@ -4,7 +4,7 @@ module SharnCLI::Cmds
   macro included
     class Add < Packager
       def run
-        new_deps = {} of String => Hash(String, String)
+        new_deps = empty_deps_hash
         dep_type = "dependencies"
         puts "File detected: #{detect_shard_file}" if options.debug?
         regex = Regex.new("^((github|gitlab|bitbucket):)?((.+):)?([^\/]+)\/([^#]+)(#(.+))?$")
