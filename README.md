@@ -5,12 +5,12 @@ No more writing to `shards.yml` by hand. In just a command, Sharn will handle ev
 
 This is also my own version of the solution for crystal-lang/shards#144 that is currently been discussed at the `crystal-lang/shards` repo.
 
-**Note: This is not a replacement for Shards. Shards will still be used in installing your dependencies.**
+**Note: This is not a replacement for [Shards](https://github.com/crystal-lang/shards). It will still be used in installing your dependencies.**
 
 ## Installation
 
 1. Clone this repo.
-2. Build it with `crystal build`
+2. Build it by running `build.sh`
 3. Run it.
 
 ## Usage
