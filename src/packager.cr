@@ -31,6 +31,16 @@ module SharnCLI
       YAML.parse(parsed_shard_file.as_h[dep_type].to_yaml).as_h
     end
 
+    def insert_hash(hash, key, new_key, new_value)
+      pairs = hash.to_a
+
+      index = pairs.index { |(k, v)| k == key }
+      raise "key not found" unless index
+
+      pairs.insert(index, {new_key, new_value})
+      pairs.to_h
+    end
+
     def clean_shard(output : Array(String))
       puts output if options.debug?
 
