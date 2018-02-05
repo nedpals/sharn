@@ -1,10 +1,9 @@
-[![My Patreon page](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://patreon.com/dotgeeq)
-# Sharn (0.1.18)
-A command line program built on Crystal that adds new commands for the [Shards](https://github.com/crystal-lang/shards) dependency manager. It is inspired from [Yarn](https://yarnpkg.com), a package manager for Javascript.
+# Sharn (0.2.0) [![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/ned/donate)
+A CLI app built on Crystal that makes managing shards easier.
 
-With Sharn, you don't have to write dependencies directly to your `shard.yml` file. Instead, you just have to type in the command and you're ready to go.
+No more writing to `shards.yml` by hand. In just a command, Sharn will handle everything for you.
 
-This is also my own version of the solution for [issue #144](https://github.com/crystal-lang/shards/issues/144) that is currently been discussed at the `crystal-lang/shards` repo.
+This is also my own version of the solution for crystal-lang/shards#144 that is currently been discussed at the `crystal-lang/shards` repo.
 
 **Note: This is not a replacement for Shards. Shards will still be used in installing your dependencies.**
 
@@ -19,7 +18,10 @@ This is also my own version of the solution for [issue #144](https://github.com/
 ```shell
 sharn add git/reponame
 ```
-
+1.1 **(new)** Add development dependencies with `dev-add`
+```shell
+sharn dev-add git/reponame
+```
 2. Remove dependency/dependencies
 ```shell
 sharn rm depname1 depname2
@@ -40,24 +42,6 @@ sharn add [gitlab/github/bitbucket]:git/repo
 sharn add git/repo#master
 ```
 
-### List of commands
-```shell
-sharn [OPTIONS] [SUBCOMMAND]
-
-Additional commands for the Shards dependency manager.
-
-Subcommands:
-  add
-  inspect
-  install (default)
-  rm
-  update
-
-Options:
-  -h, --help     show this help
-  -v, --version  show version
-```
-
 ## Development Roadmap
 
 - [x] Primary commands (add, remove, inspect, install)
@@ -66,21 +50,20 @@ Options:
   - [x] `inspect` command
   - [x] `install` command
   - [x] `update` command
-  - [x] execute `shards install` in post-installation
-  - [x] YAML manipulation 
-  - [x] Installing dev dependencies with `--dev` flag(*)
-  - [x] Specify git plaform
-  - [x] Specify branch (with `--branch` option)
-  - [x] Specify version
-    - [x] Just version number
-    - [x] `~>`, `=>`, `<=`, `>`, `<`
-
-(*) - development dependencies still in limited support. see quirks.
-	
+- [x] `dev-add` command **(new!)**
+- [x] execute `shards install` in post-installation
+- [x] YAML manipulation 
+- [x] ~~Installing dev dependencies with `--dev` flag(*)~~ (Replaced with `dev-add` command)
+- [x] Specify git plaform
+- [x] Specify branch (with `--branch` option)
+- [x] Specify version
+- [x] Just version number
+  - [x] `~>`, `=>`, `<=`, `>`, `<`
+  
 ## Quirks
 1. You may have noticed that your `shard.yml` file has been changed with newlines/whitespaces removed. This is because the way YAML module in Crystal builds the markup but don't worry this is still valid YAML and it has no difference when installing dependencies compared with newlines/whitespaces.
 
-2. Dependencies added using the `--dev` flag are now working but not added in the correct order as per [shard.yml specification](https://github.com/crystal-lang/shards/blob/master/SPEC.md).
+~~2. Dependencies added using the `--dev` flag are now working but not added in the correct order as per [shard.yml specification](https://github.com/crystal-lang/shards/blob/master/SPEC.md).~~ (Solved in https://github.com/nedpals/sharn/commit/644280a50a69880c0a329454b2cf884979581a5b)
 
 ## Contributing
 
