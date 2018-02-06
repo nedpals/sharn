@@ -1,4 +1,5 @@
 require "../packager"
+require "fileutils"
 
 module SharnCLI::Cmds
   macro included
@@ -13,10 +14,7 @@ module SharnCLI::Cmds
         puts output if options.debug?
 
         File.write(detect_shard_file, output)
-
-        puts "\n"
-
-        Install.run unless options.debug? || options.noinstall?
+        FileUtils.rmdir(arg.packages)
       end
     end
   end
