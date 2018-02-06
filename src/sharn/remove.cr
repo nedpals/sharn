@@ -14,7 +14,7 @@ module SharnCLI::Cmds
         puts output if options.debug?
 
         File.write(detect_shard_file, output)
-        FileUtils.rmdir(args.packages)
+        FileUtils.rm_rf(args.packages.map! { |pkgs| "lib/" + pkgs })
       end
     end
   end
