@@ -1,5 +1,5 @@
 require "../packager"
-require "fileutils"
+require "file_utils"
 
 module SharnCLI::Cmds
   macro included
