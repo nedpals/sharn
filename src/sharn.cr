@@ -1,5 +1,7 @@
 require "option_parser"
 require "path"
+require "process"
+
 require "./package"
 
 class Sharn
@@ -11,6 +13,7 @@ class Sharn
   property content : String
   property yaml : Hash(YAML::Any, YAML::Any)
   property write_file : Bool = true
+  property no_install : Bool = false
 
   def self.version : String
     @@VERSION
@@ -47,7 +50,7 @@ class Sharn
     end
 
     output = process_output(yaml, spaces: count_spaces(content))
-    File.write(shard_file_path, output) if write_file
+    write_file(output)
     return {n_added, output}
   end
 
@@ -65,7 +68,15 @@ class Sharn
     end
 
     output = process_output(yaml, spaces: count_spaces(content))
-    File.write(shard_file_path, output) if write_file
+    write_file(output)
     return {n_removed, output}
+  end
+
+  def install
+    Process.run("shards", shell: true) unless no_install
+  end
+
+  private def write_file(output : String)
+    File.write(shard_file_path, output) if write_file
   end
 end
