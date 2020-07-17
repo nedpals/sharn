@@ -1,8 +1,8 @@
 # Sharn (0.3.0)
 
-<a href="https://www.buymeacoffee.com/slapden" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+<a href="https://www.buymeacoffee.com/slapden" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
-A small, zero-dependency, command-line utility application that allows you to modify your `shard.yml` manifest file without touching it. This includes the ability to add, remove, and lots of functionalities to be implemented in the future. **It's a companion and not a replacement for the [Shards](https://github.com/crystal-lang/shards) package manager.**
+A small, zero-dependency, command-line utility application that allows you to modify your `shard.yml` manifest file without touching it. This includes the ability to add and remove dependencies, and lots of functionalities to be implemented in the future. **It's a companion and not a replacement for the [Shards](https://github.com/crystal-lang/shards) package manager.**
 
 This program was rebuilt from scratch designed to be compatible with the latest and future versions of Crystal.
 
