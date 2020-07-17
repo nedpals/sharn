@@ -1,69 +1,29 @@
-# Sharn (0.2.0) [![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/ned/donate)
-A CLI app built on Crystal that makes managing shards easier.
+# Sharn (0.3.0)
 
-No more writing to `shards.yml` by hand. In just a command, Sharn will handle everything for you.
+<a href="https://www.buymeacoffee.com/slapden" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
 
-This is also my own version of the solution for crystal-lang/shards#144 that is currently been discussed at the `crystal-lang/shards` repo.
+A small, zero-dependency, command-line utility application that allows you to modify your `shard.yml` manifest file without touching it. This includes the ability to add, remove, and lots of functionalities to be implemented in the future. **It's a companion and not a replacement for the [Shards](https://github.com/crystal-lang/shards) package manager.**
 
-**Note: This is not a replacement for [Shards](https://github.com/crystal-lang/shards). It will still be used in installing your dependencies.**
+This program was rebuilt from scratch designed to be compatible with the latest and future versions of Crystal.
 
-## Installation
+## Install
 
-1. Clone this repo.
-2. Build it by running `build.sh`
-3. Run it.
-
-## Usage
-1.  Add dependency/dependencies.
-```shell
-sharn add git/reponame
+To install, you need to clone this repository, and invoke the `shards build` command.
 ```
-1.1 **(new)** Add development dependencies with `dev-add`
-```shell
-sharn dev-add git/reponame
+git clone https://github.com/nedpals/sharn.git && cd sharn
+shards build
 ```
-2. Remove dependency/dependencies
-```shell
-sharn rm depname1 depname2
-```
-3. Specify version.
-```shell
-sharn add git/repo@0.1.0
-```
-4. Specify git platform
-```shell
-sharn add [gitlab/github/bitbucket]:git/repo
-```
-
-**Tip: By default, when none is specified, Sharn will automatically identifies it as a GitHub repo.**
-
-5. Specify branch.
-```shell
-sharn add git/repo#master
-```
-
-## Development Roadmap
-
-- [x] Primary commands (add, remove, inspect, install)
-  - [x] `add` command
-  - [x] `remove` command
-  - [x] `inspect` command
-  - [x] `install` command
-  - [x] `update` command
-- [x] `dev-add` command **(new!)**
-- [x] execute `shards install` in post-installation
-- [x] YAML manipulation 
-- [x] ~~Installing dev dependencies with `--dev` flag(*)~~ (Replaced with `dev-add` command)
-- [x] Specify git plaform
-- [x] Specify branch (with `--branch` option)
-- [x] Specify version
-- [x] Just version number
-  - [x] `~>`, `=>`, `<=`, `>`, `<`
   
-## Quirks
-1. You may have noticed that your `shard.yml` file has been changed with newlines/whitespaces removed. This is because the way YAML module in Crystal builds the markup but don't worry this is still valid YAML and it has no difference when installing dependencies compared with newlines/whitespaces.
+## Roadmap
+- [x] `add` command.
+- [x] `remove` command.
+- [ ] `inspect` command.
+- [ ] `bump-version` command. 
+- [ ] Testing
+- [ ] And many more to come...
 
-~~2. Dependencies added using the `--dev` flag are now working but not added in the correct order as per [shard.yml specification](https://github.com/crystal-lang/shards/blob/master/SPEC.md).~~ (Solved in https://github.com/nedpals/sharn/commit/644280a50a69880c0a329454b2cf884979581a5b)
+## Caveats (for now)
+1. Adding packages to a non-existing key will be placed to the bottom. (They will be organized soon).
 
 ## Contributing
 
